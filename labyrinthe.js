@@ -31,8 +31,54 @@ function retirer(tab, x) {
 	print(tab);
 }
 
-
-
+function voisins(x, y, nx, ny) {
+	var n,e,s,o;
+    var result = [];
+	n = x + y * nx;
+	e = 1 + x + y * (nx + 1);
+	s = x + (y + 1) * nx;
+	o = x + y * (nx + 1);
+	
+    if (n < nx) {
+    	if(n%nx == 0) {
+            result.push(n+1);
+            result.push(n+nx);    
+        } else if(n%nx == nx -1) {
+		    result.push(n-1);
+    		result.push(n+nx);
+        } else {
+		    result.push(n-1);
+    		result.push(n+1);
+    		result.push(n+nx);
+        }
+    } else if(n >= nx*(ny-1)) {
+    	if(n%nx == 0) {
+    		result.push(n-nx);
+            result.push(n+1);
+        } else if(n%nx == nx -1) {
+    		result.push(n-nx);
+            result.push(n-1);
+        } else {
+            result.push(n-nx);
+		    result.push(n-1);
+    		result.push(n+1);
+        }
+    } else if(n % nx == 0) {
+    	result.push(n-nx);
+    	result.push(n+1);
+    	result.push(n+nx);
+    } else if(n % nx == nx-1) {
+    	result.push(n-nx);
+    	result.push(n-1);
+    	result.push(n+nx);
+    } else {
+    	result.push(n-nx);
+    	result.push(n-1);
+    	result.push(n+1);
+    	result.push(n+nx);
+    }
+    print(result);
+}
 
 
 
