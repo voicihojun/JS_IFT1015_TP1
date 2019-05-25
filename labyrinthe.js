@@ -6,30 +6,25 @@ function iota(n) {
 	for(var i=0; i < n; i++) {
 		tab.push(i);
 	}
-	return(tab);
+	return tab;
 }
 // if the n is negative, error message! 
 
 
 function contient(tab, x) {
-	return(tab.includes(x));
+	return tab.includes(x);
 }
 
 function ajouter(tab, x) {
-	if(tab.includes(x)) {
-		return(tab);
-	} else {
-		return(tab.push(x));
-	}
+	if(!tab.includes(x))
+		tab.push(x)
+	return tab;
 }
 
 function retirer(tab, x) {
-	if(tab.includes(x)) {
-		var ind = tab.indexOf(x);
-        tab.splice(ind, 1);
-		return(tab);
-	} 
-	return(tab);
+	if(tab.includes(x)) 
+  	tab.splice(tab.indexOf(x), 1);
+	return tab;
 }
 
 function voisins(x, y, nx, ny) {
