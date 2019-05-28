@@ -8,7 +8,11 @@ function iota(n) {
 	}
 	return tab;
 }
-// if the n is negative, error message! 
+
+// test code should include only one functionality
+// for example, this one has to have 2 test codes like 
+// one : if the n is negative, error message! 
+// two : the lenght of this array should be n. 
 
 
 function contient(tab, x) {
@@ -17,9 +21,14 @@ function contient(tab, x) {
 
 function ajouter(tab, x) {
 	if(!tab.includes(x))
-		tab.push(x)
+		tab.push(x);
 	return tab;
 }
+
+// it's like making an good example
+// ex)   tab = [1,2,3]
+// if x = 4
+// return tab.include(x) should be false.
 
 function retirer(tab, x) {
 	if(tab.includes(x)) 
@@ -28,14 +37,10 @@ function retirer(tab, x) {
 }
 
 function voisins(x, y, nx, ny) {
-	var n,e,s,o;
+	var n;
     var result = [];
 	n = x + y * nx;
-	e = 1 + x + y * (nx + 1);
-	s = x + (y + 1) * nx;
-	o = x + y * (nx + 1);
-	//e,s,o 는 이 함수에서는 필요없음
-	
+	// we don't need e, s, o for this function. 
     if (n < nx) {
     	if(n%nx == 0) {
             result.push(n+1);
@@ -88,14 +93,11 @@ function laby(nx, ny, pas) {
 	var cavite, x, y, voisin;
 	mursH = iota(nx * (ny+1));
 	mursV = iota((nx+1) * ny);
-	print("mursV = " + mursV);
-	print("mursH = " + mursH);
+	// print("mursV = " + mursV);
+	// print("mursH = " + mursH);
 
-	// randomX = Math.floor(Math.random() * (nx+1));
-	// randomY = Math.floor(Math.random() * (ny+1));
-	// 일단 편하게 코딩 하기 위해 임으로 (3,1)을 정함
-
-	x = 3; y = 1;
+	x = Math.floor(Math.random() * (nx+1));
+	y = Math.floor(Math.random() * (ny+1));
 	cavite = x + y * nx;
 	// caviteCoordonnees = [x, y];
 	
@@ -152,21 +154,52 @@ function laby(nx, ny, pas) {
 
 	} // for
 
-	print("mursV = " + mursV);
-	print("mursH = " + mursH);
-	print("cavite : " + cavite);
-	print("new Cavite : " + newCavite);
-	print("cave : " + cave);
-	print("cave length : " + cave.length);
-	print("front : " + front);
+	// print("mursV = " + mursV);
+	// print("mursH = " + mursH);
+	// print("cavite : " + cavite);
+	// print("new Cavite : " + newCavite);
+	// print("cave : " + cave);
+	// print("cave length : " + cave.length);
+	// print("front : " + front);
+
+	function goToUpLeft(nx, ny, pas) {
+		pu(); fd(ny/2 * pas); lt(90); fd(nx/2 * pas); rt(180); pd();
+	}
+
+	function drawMazeH(nx, ny, tab) {
+		for(var i=0; i < nx*(ny+1); i++) {
+			if(i !=0 && i % nx == 0 && i!=nx*ny-1) {
+				pu(); bk(nx*pas); rt(90); fd(pas); lt(90); pd();
+			}
+
+			if(contient(tab, i) && i != 0 && i != (nx*(ny+1)-1)) {
+				fd(pas);
+			} else {
+				pu(); fd(pas); pd();
+			}
+		}
+	}
+
+	function drawMazeV(nx, ny, tab) {
+		pu(); bk(nx*pas); rt(90); bk(ny*pas); pd();
+		for(var i=0; i < (nx+1)*ny; i++) {
+			if(i % (nx+1) == 0 && i != 0) {
+				pu(); lt(90); bk((nx+1)*pas); rt(90); fd(pas); pd();
+			}
+			if(contient(tab, i)) {
+				fd(pas); 
+				pu(); bk(pas); lt(90); fd(pas); rt(90); pd();
+			} else {
+				pu(); lt(90); fd(pas); rt(90); pd();
+			}
+		}
+	}
+
+	goToUpLeft(nx, ny, pas);
+	drawMazeH(nx, ny, mursH);
+	drawMazeV(nx, ny, mursV);
 	
 } // function laby
-
-
-// $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-// I need to make a function to draw the labyrinthe on the codeboot.org
-// $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-
 
 
 // laby(10,4,20);
